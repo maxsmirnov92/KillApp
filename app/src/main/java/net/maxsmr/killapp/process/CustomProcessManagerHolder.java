@@ -5,7 +5,7 @@ import android.os.Build;
 
 import net.maxsmr.commonutils.android.processmanager.AbstractProcessManager;
 import net.maxsmr.commonutils.android.processmanager.DefaultProcessManager;
-import net.maxsmr.commonutils.android.processmanager.ProcessManagerWrapper;
+import net.maxsmr.commonutils.android.processmanager.ProcessManagerHolder;
 import net.maxsmr.commonutils.android.processmanager.shell.BusyboxPsProcessManager;
 import net.maxsmr.commonutils.android.processmanager.shell.BusyboxTopProcessManager;
 import net.maxsmr.commonutils.android.processmanager.shell.PsProcessManager;
@@ -17,9 +17,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class CustomProcessManagerWrapper extends ProcessManagerWrapper {
+public class CustomProcessManagerHolder extends ProcessManagerHolder {
 
-    public CustomProcessManagerWrapper(@NotNull Context context) {
+    public CustomProcessManagerHolder(@NotNull Context context) {
         super(context);
     }
 

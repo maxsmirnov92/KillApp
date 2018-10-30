@@ -8,7 +8,7 @@ import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import net.maxsmr.commonutils.android.processmanager.ProcessManagerWrapper;
+import net.maxsmr.commonutils.android.processmanager.ProcessManagerHolder;
 import net.maxsmr.commonutils.data.CompareUtils;
 import net.maxsmr.commonutils.logger.BaseLogger;
 import net.maxsmr.commonutils.logger.holder.BaseLoggerHolder;
@@ -74,7 +74,7 @@ public class EndCallReceiver extends BroadcastReceiver {
 
             for (String packageName : restrictionPackages) {
                 Map<Integer, Boolean> statusMap = RootShellCommands.killProcessesByNameWithStatus(packageName,
-                        ProcessManagerWrapper.getInstance().getProcessManager(),
+                        ProcessManagerHolder.getInstance().getProcessManager(),
                         config.isIncludeSystemPackages());
 
                 if (statusMap == null) {
@@ -100,7 +100,7 @@ public class EndCallReceiver extends BroadcastReceiver {
 
         } else {
             // not calling getProcesses() on each package iteration
-            RootShellCommands.killProcessesByNames(restrictionPackages, ProcessManagerWrapper.getInstance().getProcessManager(),
+            RootShellCommands.killProcessesByNames(restrictionPackages, ProcessManagerHolder.getInstance().getProcessManager(),
                     config.isIncludeSystemPackages());
         }
     }

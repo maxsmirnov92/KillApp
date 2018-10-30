@@ -3,13 +3,13 @@ package net.maxsmr.killapp.app;
 import android.app.Application;
 import android.net.Uri;
 
-import net.maxsmr.commonutils.android.processmanager.ProcessManagerWrapper;
+import net.maxsmr.commonutils.android.processmanager.ProcessManagerHolder;
 import net.maxsmr.commonutils.logger.BaseLogger;
 import net.maxsmr.commonutils.logger.LogcatLogger;
 import net.maxsmr.commonutils.logger.holder.BaseLoggerHolder;
 import net.maxsmr.commonutils.shell.ShellWrapper;
 import net.maxsmr.killapp.model.ConfigHolder;
-import net.maxsmr.killapp.process.CustomProcessManagerWrapper;
+import net.maxsmr.killapp.process.CustomProcessManagerHolder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +41,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ProcessManagerWrapper.initInstance(this, CustomProcessManagerWrapper::new);
+        ProcessManagerHolder.initInstance(this, CustomProcessManagerHolder::new);
         configHolder = new ConfigHolder(this, Uri.parse("asset_file://config.json"));
     }
 }
