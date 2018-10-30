@@ -1,0 +1,2 @@
+include ':app'
+//project(':commonutils').projectDir = new File(settingsDir, '../MxSUtilsLibrary/commonutils/')

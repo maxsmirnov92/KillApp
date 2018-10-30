@@ -1,0 +1,7 @@
+{
+  "restriction_packages": [
+    "org.skvalex.cr", "org.skvalex.cr.root"
+  ],
+  "include_system_packages": false,
+  "kill_delay": 2000
+}

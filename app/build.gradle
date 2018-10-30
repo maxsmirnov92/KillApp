@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    compileSdkVersion sdkVersion
+    buildToolsVersion buildToolsVersion_
+
+    sourceCompatibility = sourceCompatibilityVersion
+    targetCompatibility = sourceCompatibilityVersion
+
+    defaultConfig {
+        minSdkVersion minSdkVersion_
+        targetSdkVersion sdkVersion
+        versionCode 1
+        versionName project.appVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        // Don't abort if Lint finds an error, otherwise the Jenkins build
+        // will be marked as failed, and Jenkins won't analyse the Lint output
+        abortOnError false
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:support-annotations:$supportLibraryVersion"
+//    implementation project(':commonutils')
+    implementation "net.maxsmr:commonutils:$commonUtilsVersion"
+    implementation "net.maxsmr:permissionchecker:$permissionCheckerVersion"
+}
