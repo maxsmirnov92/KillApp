@@ -3,6 +3,7 @@ package net.maxsmr.killapp.app;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.telephony.TelephonyManager;
@@ -61,7 +62,12 @@ public class EndCallReceiver extends BroadcastReceiver {
             }
 
             if (CompareUtils.stringsEqual(state, TelephonyManager.EXTRA_STATE_IDLE, false)) {
-                handler.postDelayed(() -> executor.execute(() -> killRestrictionPackages(config)), delay);
+                handler.postDelayed(() -> executor.execute(() -> {
+                    if (isCallActive(context)) {
+                        return;
+                    }
+                    killRestrictionPackages(config);
+                }), delay);
             }
         }
     }
@@ -103,5 +109,14 @@ public class EndCallReceiver extends BroadcastReceiver {
             RootShellCommands.killProcessesByNames(restrictionPackages, ProcessManagerHolder.getInstance().getProcessManager(),
                     config.isIncludeSystemPackages());
         }
+    }
+
+    // TODO move
+    public static boolean isCallActive(Context context) {
+        AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        if (manager == null) {
+            throw new RuntimeException(AudioManager.class.getSimpleName() + " is null");
+        }
+        return manager.getMode() == AudioManager.MODE_IN_CALL;
     }
 }
